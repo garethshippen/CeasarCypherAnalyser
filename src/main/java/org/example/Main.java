@@ -7,7 +7,6 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Main {
-    private final static String letterFreq = "etaoinshrdlcumwfgypbvkjxqz";
     private final static String alphabet = "abcdefghijklmnopqrstuvwxyz";
     public static void main(String[] args)
     {
@@ -41,10 +40,11 @@ public class Main {
                 //a = 97
                 //z = 122
                 if(red > 96 && red < 123) {
-                    int index = letterFreq.indexOf(character);
+                    int index = alphabet.indexOf(character);
                     frequencies[index]++;
                 }
             }
+            bufferedReader.close();
         }
         catch(Exception e)
         {
