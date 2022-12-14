@@ -3,10 +3,9 @@ package org.example;
 public class Map
 {
     private final String letterFreq = "etaoinshrdlcumwfgypbvkjxqz";
-    private final static String alphabet = "abcdefghijklmnopqrstuvwxyz";
+    public final static String alphabet = "abcdefghijklmnopqrstuvwxyz";
     private int[] frequencies;
-    public static int e2t = (alphabet.length() + alphabet.indexOf('e') - alphabet.indexOf('t')) % alphabet.length();
-
+    private static final int e2t = (int)'t' - (int)'e';
     public Map(int[] _frequencies)
     {
         frequencies = _frequencies;
@@ -17,27 +16,34 @@ public class Map
         int[] frequencies = _frequencies;
         final int REPEATS = 2;
         int instances;
-        int[] index = new int[REPEATS];
+        //int index = -1;
+        int[] modals = new int[REPEATS];
         int length = frequencies.length;
 
         for(int j = 0; j < REPEATS; j++) {
             instances = 0;
-            index[j] = -1;
-            for (int i = 0; i < length; i++) {
+            modals[j] = -1;
+            for (int i = 0; i < length; i++)
+            {
                 if (frequencies[i] > instances)
-                    index[j] = i;
-                    frequencies[i] = -1;
+                {
+                    instances = frequencies[i];
+                    //index = i;
+                    modals[j] = i;
+                }
             }
+
+            frequencies[modals[j]] = -1;
         }
-//        if(index[0] >= 0 && index[1] >= 0)
-//        {
-//            return (length + index[0] - index[1]) % length;
-//        }
-//        else
-//        {
-//            return -1;
-//        }
-        return (length + index[0] - index[1]) % length;
+        System.out.printf("\'e\' is %d \'t\' is %d\n", modals[0], modals[1]);
+        if(modals[0] >= 0 && modals[1] >= 0)
+        {
+            return (length + modals[1] - modals[0]) % length;
+        }
+        else
+        {
+            return -1;
+        }
     }
-    public int getE2t(){return e2t;}
+    public static int getE2t(){return e2t;}
 }
