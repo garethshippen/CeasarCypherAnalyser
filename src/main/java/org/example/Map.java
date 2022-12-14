@@ -10,15 +10,22 @@ public class Map
     private final String alphabet = "abcdefghijklmnopqrstuvwxyz";
     private final int e2t = (int)'t' - (int)'e';
     private int[] frequencies;
-    CypherPair[] cypherPairs;
+    private CypherPair[] cypherPairs;
     //endregion
 
     //region Constructor
     public Map(int[] _frequencies)
     {
         frequencies = _frequencies;
+        if(!rotFilter(frequencies))
+        {
+            createCypherPairs();
+            sortCypherPairs();
+        }
     }
     //endregion
+
+    //TODO Decypher text
 
     //region Methods
     private boolean rotFilter(int[] _frequencies)
