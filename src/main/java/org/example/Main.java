@@ -7,10 +7,19 @@ import java.net.URISyntaxException;
 import java.net.URL;
 
 public class Main {
-    private final static String alphabet = "abcdefghijklmnopqrstuvwxyz";
-    public static void main(String[] args)
-    {
+    public static void main(String[] args) throws URISyntaxException {
+        int[] frequencies = getTextFreq(getFile("plaintext.txt"));
+        int e2t = Map.e2Tdist(frequencies);
 
+        System.out.printf("Map.e2t is %d and file e2t is %d.\n", Map.e2t, e2t);
+        if(Map.e2t == e2t)
+        {
+            System.out.println("I think this is a Rot cypher. ");
+        }
+        else
+        {
+            System.out.println("I don't think this is a Rot cypher. ");
+        }
     }
     private static File getFile(String _fileName) throws URISyntaxException {
         ClassLoader classLoader = Main.class.getClassLoader();
@@ -23,10 +32,11 @@ public class Main {
         {
             return new File(resource.toURI());
         }
-    }
-    private static int[] getTextFreq(File _file)
+    } //returns input stream from a file
+    private static int[] getTextFreq(File _file) //returns int array of instances of letter a, letter b...
     {
         BufferedReader bufferedReader;
+        String alphabet = "abcdefghijklmnopqrstuvwxyz";
         int[] frequencies = new int[26];
         try
         {
